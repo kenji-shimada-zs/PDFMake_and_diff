@@ -7,13 +7,14 @@ cwd_path=pathlib.Path(os.getcwd())
 pdf_old_path     = cwd_path.joinpath("test_pdf/MergedPDF_20241024_1016.pdf")
 pdf_current_path = cwd_path.joinpath("test_pdf/MergedPDF_20241031_0903.pdf")
 temp_addr        = cwd_path.joinpath("temp")
-if temp_addr.exists() == True:
-    shutil.rmtree(temp_addr)
-
-if temp_addr.exists() == False:
-    os.makedirs(temp_addr)
 
 def diff(pdf_old_path,pdf_current_path,temp_addr):
+    if temp_addr.exists() == True:
+        shutil.rmtree(temp_addr)
+
+    if temp_addr.exists() == False:
+        os.makedirs(temp_addr)
+
     pdf_old_doc    =fitz.open(pdf_old_path)
     pdf_current_doc=color_chg(fitz.open(pdf_current_path),color="red")
     pdf_old_doc_temp    =temp_addr.joinpath(f"{pdf_old_path.name}")
