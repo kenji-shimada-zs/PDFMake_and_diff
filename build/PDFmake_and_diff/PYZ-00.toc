@@ -1,0 +1,2 @@
+('d:\\work2_NVMe\\shimada\\PDFMake_and_diff\\build\\PDFmake_and_diff\\PYZ-00.pyz',
+ [])
