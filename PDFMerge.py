@@ -34,11 +34,12 @@ sht_dir=pathlib.WindowsPath(f'{args.sht}')
 out_dir=cwd.joinpath(f'{args.out}')
 tmp_dir=cwd.joinpath(f'{args.tmp}')
 
-print(f"sht_dir={sht_dir}")
-print(f"out_dir={out_dir}")
-print(f"tmp_dir={tmp_dir}")
+
 
 def pdfMerge(sht_dir,out_dir,tmp_dir):
+    print(f"sht_dir={sht_dir}")
+    print(f"out_dir={out_dir}")
+    print(f"tmp_dir={tmp_dir}")
     if out_dir.exists() == False:
         os.makedirs(out_dir)
     if tmp_dir.exists() == False:

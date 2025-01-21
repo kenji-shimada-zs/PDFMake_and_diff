@@ -1,6 +1,6 @@
 import pypdf,pathlib,os,re
 
-def merge_pdf_page(old_pdf,current_pdf,temp_dir):
+def merge_pdf_page(old_pdf:pathlib.Path,current_pdf:pathlib.Path,output_dir:pathlib.Path):
     old_pdf_obj     = pypdf.PdfReader(old_pdf)
     current_pdf_obj = pypdf.PdfReader(current_pdf)
     output= pypdf.PdfWriter()
@@ -9,7 +9,7 @@ def merge_pdf_page(old_pdf,current_pdf,temp_dir):
         output.add_page(current_pdf_obj.pages[count])
     old_time=re.search('[\d]+_[\d]+',old_pdf.name).group()
     current_time=re.search('[\d]+_[\d]+',current_pdf.name).group()
-    outStream = open(temp_dir.parent.joinpath(f'{old_time}-{current_time}_diff.pdf'),'wb')
+    outStream = open(output_dir.joinpath(f'{old_time}-{current_time}_diff.pdf'),'wb')
     output.write(outStream)
     outStream.close()
     

@@ -2,13 +2,14 @@ import sys,fitz,pathlib,os,shutil
 import Marge_PDF_page
 from pprint import pprint
 
-
+UserDrive =pathlib.Path(f"{os.getenv('USERPROFILE')}")
 cwd_path=pathlib.Path(os.getcwd())
 pdf_old_path     = cwd_path.joinpath("test_pdf/MergedPDF_20241024_1016.pdf")
 pdf_current_path = cwd_path.joinpath("test_pdf/MergedPDF_20241031_0903.pdf")
-temp_addr        = cwd_path.joinpath("temp")
+output_addr      = cwd_path.joinpath("output")
+temp_addr        = UserDrive.joinpath('temp')
 
-def diff(pdf_old_path,pdf_current_path,temp_addr):
+def diff(pdf_old_path:pathlib.Path,pdf_current_path:pathlib.Path,output_dir:pathlib.Path,temp_addr:pathlib.Path):
     if temp_addr.exists() == True:
         shutil.rmtree(temp_addr)
 
@@ -21,7 +22,7 @@ def diff(pdf_old_path,pdf_current_path,temp_addr):
     pdf_current_doc_temp=temp_addr.joinpath(f"{pdf_current_path.name}")
     pdf_old_doc    .save(pdf_old_doc_temp)
     pdf_current_doc.save(pdf_current_doc_temp)
-    Marge_PDF_page.merge_pdf_page(old_pdf=pdf_old_doc_temp,current_pdf=pdf_current_doc_temp,temp_dir=temp_addr)
+    Marge_PDF_page.merge_pdf_page(old_pdf=pdf_old_doc_temp,current_pdf=pdf_current_doc_temp,output_dir=output_dir)
     
 def color_chg(doc_addr,color):
     doc = fitz.open(doc_addr)
@@ -67,6 +68,6 @@ if __name__== "__main__":
     print(f'old_PDF_file=[{PDF_files[-2]}]')
     print(f'new_PDF_file=[{PDF_files[-1]}]')
     print('Start Check Diff........')
-    diff(pdf_old_path=PDF_files[-2],pdf_current_path=PDF_files[-1],temp_addr=temp_addr)
+    diff(pdf_old_path=PDF_files[-2],pdf_current_path=PDF_files[-1],output_dir=output_addr,temp_addr=temp_addr)
     print('Finished')
     input()
